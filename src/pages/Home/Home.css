@@ -1,16 +1,17 @@
 .home {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    z-index: 100;
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     transition: all ease-in;
 }
 
 #home-content {
     background-color: var(--transparent-background-color);
-    width: 40%;
+    transform: translate(-50%, -50%);
+    width: 89.5%;
     padding: 7% 5%;
     display: flex;
     justify-content: center;
