@@ -15,8 +15,8 @@ export const slideAnimation = (direction, magnitude = 100) => ({
     transition: { ...transition, delay: 0 },
   },
   exit: {
-    x: direction === 'left' ? -100 : direction === 'right' ? 100 : 0,
-    y: direction === 'up' ? 100 : direction === 'down' ? -100 : 0,
+    x: direction === 'left' ? -magnitude : direction === 'right' ? magnitude : 0,
+    y: direction === 'up' ? magnitude : direction === 'down' ? -magnitude : 0,
     transition: { ...transition, delay: 0 },
   },
 });

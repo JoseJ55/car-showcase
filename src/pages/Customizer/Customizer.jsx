@@ -9,6 +9,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 import state from '../../store';
 
+// Custom components
+import ColorPicker from '../../components/ColorPicker/ColorPicker';
+
 function Customizer() {
   const snap = useSnapshot(state);
 
@@ -16,7 +19,7 @@ function Customizer() {
     <AnimatePresence>
       {!snap.intro && (
         <motion.section>
-          <p>Customizer</p>
+          <ColorPicker />
           <input type="button" aria-label="Customize" value="Customize" onClick={() => state.intro = true} />
         </motion.section>
       )}
