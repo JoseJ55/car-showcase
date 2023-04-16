@@ -1,0 +1,25 @@
+#customizer-back-button {
+    position: absolute;
+    bottom: 1%;
+    left: .5%;
+    width: 5%;
+    padding: .5% 0;
+    background-color: var(--transparent-button-color);
+    border: grey solid 1px;
+    border-radius: 10px;
+}
+
+#customizer-back-button:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+#customizer-back-button-icon {
+    font-size: 1.1rem;
+    color: var(--main-text-color);
+    transition: ease-in 1s;
+}
+
+#customizer-back-button:hover #customizer-back-button-icon, #customizer-back-button:hover #customizer-back-button-icon {
+    transform: translateX(-10px) translateX(10px);
+}

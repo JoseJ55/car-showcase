@@ -9,9 +9,6 @@ import './ColorPicker.css';
 // Animation modules
 import { motion, AnimatePresence } from 'framer-motion';
 
-// import icons
-// import { AiOutlineDoubleLeft } from 'react-icons/ai';
-
 // Color picker module
 import { SketchPicker } from 'react-color';
 
