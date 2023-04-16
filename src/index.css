@@ -4,3 +4,14 @@ html, body, #root, canvas {
   margin: 0;
   overflow: hidden;
 }
+
+:root {
+  --main-color: rgba(0, 0, 0, 1);
+  --secondary-color: rgba(0, 0, 0, 1);
+  --transparent-background-color: rgba(143, 143, 143, 0.826);
+  --transparent-button-color: rgba(143, 143, 143, 0.826);
+
+  --main-text-color: rgba(0, 0, 0, 1);
+
+  --main-font: Verdana, Geneva, Tahoma, sans-serif;
+}

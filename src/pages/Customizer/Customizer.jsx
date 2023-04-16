@@ -1,9 +1,27 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 
-const Customizer = () => {
+// Animation modules
+import { motion, AnimatePresence } from 'framer-motion';
+
+// State management
+import { useSnapshot } from 'valtio';
+import state from '../../store';
+
+function Customizer() {
+  const snap = useSnapshot(state);
+
   return (
-    <div>Customizer</div>
-  )
+    <AnimatePresence>
+      {!snap.intro && (
+        <motion.section>
+          <p>Customizer</p>
+          <input type="button" aria-label="Customize" value="Customize" onClick={() => state.intro = true} />
+        </motion.section>
+      )}
+    </AnimatePresence>
+  );
 }
 
-export default Customizer
+export default Customizer;
