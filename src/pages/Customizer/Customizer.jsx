@@ -31,7 +31,15 @@ function Customizer() {
           <ColorPicker />
 
           <motion.div id="customizer-back" {...slideAnimation('left', 500)}>
-            <button id="customizer-back-button" type="button" aria-label="Customize" onClick={() => state.intro = true}>
+            <button
+              id="customizer-back-button"
+              type="button"
+              aria-label="Customize"
+              onClick={() => {
+                state.intro = true;
+                state.colorPickerOpen = false;
+              }}
+            >
               <AiOutlineDoubleLeft id="customizer-back-button-icon" />
             </button>
           </motion.div>

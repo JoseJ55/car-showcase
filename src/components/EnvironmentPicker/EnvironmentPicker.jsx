@@ -4,7 +4,7 @@ import React from 'react';
 import './EnvironmentPicker.css';
 
 // Animation modules
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 // Animation components
 import { slideAnimation } from '../../config/motion';
@@ -24,13 +24,11 @@ function EnvironmentPicker() {
   ];
 
   return (
-    <AnimatePresence>
-      <motion.div id="environment-picker" {...slideAnimation('down', 500)}>
-        {enviornments.map((env) => (
-          <input className="environment" type="button" value={env.title} />
-        ))}
-      </motion.div>
-    </AnimatePresence>
+    <motion.div id="environment-picker" {...slideAnimation('up', 500)}>
+      {enviornments.map((env) => (
+        <input className="environment" type="button" value={env.title} />
+      ))}
+    </motion.div>
   );
 }
 

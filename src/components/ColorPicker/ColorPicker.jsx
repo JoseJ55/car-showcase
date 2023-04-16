@@ -29,7 +29,7 @@ function ColorPicker() {
   };
 
   return (
-    <AnimatePresence>
+    <>
       <motion.div id="color-history" {...slideAnimation('left', 500)}>
         <input type="button" id="toggle-picker" onClick={() => state.colorPickerOpen = !snap.colorPickerOpen} />
 
@@ -44,17 +44,21 @@ function ColorPicker() {
         ))}
       </motion.div>
 
-      {snap.colorPickerOpen && (
-        <motion.div id="color-picker" {...slideAnimation('left', 500)}>
-          <SketchPicker
-            id="color-picker-box"
-            color={snap.color}
-            disableAlpha
-            onChange={(color) => addNewColor(color.hex)}
-          />
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <AnimatePresence>
+            {snap.colorPickerOpen && (
+                <motion.section>
+                    <motion.div id="color-picker" {...slideAnimation('left', 500)}>
+                        <SketchPicker
+                          id="color-picker-box"
+                          color={snap.color}
+                          disableAlpha
+                          onChange={(color) => addNewColor(color.hex)}
+                        />
+                    </motion.div>
+                </motion.section>
+            )}
+        </AnimatePresence>
+    </>
   );
 }
 

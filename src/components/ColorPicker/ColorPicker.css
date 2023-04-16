@@ -1,6 +1,6 @@
 #color-history {
     background-color: var(--transparent-button-color);
-    transition: all ease-in;
+    transition: all ease-in-out;
     width: 4%;
     min-height: 60%;
     position: absolute;
@@ -41,7 +41,7 @@
 }
 
 #color-picker {
-    transition: all ease-in;
+    transition: all ease-in-out;
     position: absolute;
     left: 5.5%;
     top: 20%;
