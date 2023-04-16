@@ -23,9 +23,16 @@ function ColorPicker() {
   const snap = useSnapshot(state);
 
   const addNewColor = (color) => {
-    state.color = color;
+    const pickColor = {
+      hex: color.hex,
+      r: color.rgb.r,
+      g: color.rgb.g,
+      b: color.rgb.b,
+    };
+
+    state.color = pickColor;
     state.pastColors.shift();
-    state.pastColors.push(color);
+    state.pastColors.push(pickColor);
   };
 
   return (
@@ -38,7 +45,7 @@ function ColorPicker() {
               type="button"
               className="past-color"
               key={key}
-              style={{ backgroundColor: item }}
+              style={{ backgroundColor: item.hex }}
               onClick={() => addNewColor(item)}
             />
         ))}
@@ -50,9 +57,9 @@ function ColorPicker() {
                     <motion.div id="color-picker" {...slideAnimation('left', 500)}>
                         <SketchPicker
                           id="color-picker-box"
-                          color={snap.color}
+                          color={snap.color.hex}
                           disableAlpha
-                          onChange={(color) => addNewColor(color.hex)}
+                          onChange={(color) => addNewColor(color)}
                         />
                     </motion.div>
                 </motion.section>

@@ -25,8 +25,9 @@ function EnvironmentPicker() {
 
   return (
     <motion.div id="environment-picker" {...slideAnimation('up', 500)}>
-      {enviornments.map((env) => (
-        <input className="environment" type="button" value={env.title} />
+      {enviornments.map((env, key) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <input key={key} className="environment" type="button" value={env.title} />
       ))}
     </motion.div>
   );

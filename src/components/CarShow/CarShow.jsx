@@ -1,14 +1,12 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable semi */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React from 'react';
 import './CarShow.css';
 
 // Postprocessing elements
 import {
   EffectComposer,
-  DepthOfField,
   Bloom,
   ChromaticAberration,
 } from '@react-three/postprocessing'
@@ -24,6 +22,7 @@ import {
 
 // Custom Component
 import Ground from '../Ground/Ground';
+import Car from '../Car/Car';
 
 function CarShow() {
   return (
@@ -36,7 +35,7 @@ function CarShow() {
 
       <spotLight
         color={[1, 0.25, 0.7]}
-        intensity={1.5}
+        intensity={0.4}
         angle={0.6}
         penumbra={0.5}
         position={[5, 5, 0]}
@@ -45,7 +44,7 @@ function CarShow() {
       />
       <spotLight
         color={[0.14, 0.5, 1]}
-        intensity={2}
+        intensity={0.4}
         angle={0.6}
         penumbra={0.5}
         position={[-5, 5, 0]}
@@ -54,6 +53,32 @@ function CarShow() {
       />
 
       <Ground />
+
+      <CubeCamera resolution={256} frames={Infinity}>
+        {(texture) => (
+          <>
+            <Environment map={texture} />
+            <Car />
+          </>
+        )}
+      </CubeCamera>
+
+      <EffectComposer>
+        <Bloom
+          blendFunction={BlendFunction.ADD}
+          intensity={0.1} // The bloom intensity.
+          width={800} // render width
+          height={800} // render height
+          kernelSize={2} // blur kernel size
+          // eslint-disable-next-line max-len
+          luminanceThreshold={0.10} // luminance threshold. Raise this value to mask out darker elements in the scene.
+          luminanceSmoothing={0.15} // smoothness of the luminance threshold. Range is [0, 1]
+        />
+        <ChromaticAberration
+          blendFunction={BlendFunction.NORMAL} // blend mode
+          offset={[0.0002, 0.0002]} // color offset
+        />
+      </EffectComposer>
     </>
   );
 }
