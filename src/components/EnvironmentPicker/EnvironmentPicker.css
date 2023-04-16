@@ -1,0 +1,29 @@
+#environment-picker {
+    transition: all ease-in;
+    position: absolute;
+    bottom: 1%;
+    left: 30%;
+    width: 40%;
+    padding: .5% 0;
+    background-color: var(--transparent-button-color);
+    border: grey solid 1px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.environment {
+    margin: 0 1%;
+    padding: 1% 2%;
+    font: var(--main-font);
+    background-color: transparent;
+    border: transparent solid 1px;
+}
+
+.environment:hover {
+    cursor: pointer;
+    background-color: white;
+    border: grey solid 1px;
+    border-radius: 10px;
+}

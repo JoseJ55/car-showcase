@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-return-assign */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
@@ -15,6 +16,10 @@ import state from '../../store';
 
 // Custom components
 import ColorPicker from '../../components/ColorPicker/ColorPicker';
+import EnvironmentPicker from '../../components/EnvironmentPicker/EnvironmentPicker';
+
+// Animation components
+import { slideAnimation } from '../../config/motion';
 
 function Customizer() {
   const snap = useSnapshot(state);
@@ -24,9 +29,14 @@ function Customizer() {
       {!snap.intro && (
         <motion.section>
           <ColorPicker />
-          <button id="customizer-back-button" type="button" aria-label="Customize" onClick={() => state.intro = true}>
-            <AiOutlineDoubleLeft id="customizer-back-button-icon" />
-          </button>
+
+          <motion.div id="customizer-back" {...slideAnimation('left', 500)}>
+            <button id="customizer-back-button" type="button" aria-label="Customize" onClick={() => state.intro = true}>
+              <AiOutlineDoubleLeft id="customizer-back-button-icon" />
+            </button>
+          </motion.div>
+
+          <EnvironmentPicker />
         </motion.section>
       )}
     </AnimatePresence>
