@@ -40,6 +40,9 @@ function CarShow() {
         autoRotate={snap.intro}
         autoRotateSpeed={2}
         enableRotate={!snap.intro}
+        enablePan={false}
+        minDistance={3}
+        maxDistance={8}
       />
 
       <PerspectiveCamera

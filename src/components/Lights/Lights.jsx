@@ -12,23 +12,26 @@ function Lights() {
   if (snap.currentEnvironment === 'nighttime') {
     return (
       <>
+        <directionalLight
+          color={[0.86, 0.95, 1]}
+          intensity={0.043}
+          castShadow
+          isDirectionalLight
+          position={[-2, 12, 3]}
+        />
+        <ambientLight
+          color={[0.86, 0.95, 1]}
+          intensity={0.005}
+          isAmbientLight
+        />
         <spotLight
           color={[0.76, 0.85, 1]}
-          intensity={0.2}
+          intensity={0.13}
           angle={0.5}
           penumbra={0.5}
           position={[7, 6, 3]}
           castShadow
           shadow-bias={-0.0001}
-        />
-        <spotLight
-          color={[0.86, 0.95, 1]}
-          intensity={0.05}
-          angle={0.5}
-          penumbra={0.8}
-          position={[-6, 6, 3]}
-          castShadow
-          shadow-bias={0.001}
         />
       </>
     );
@@ -36,15 +39,22 @@ function Lights() {
 
   if (snap.currentEnvironment === 'daytime') {
     return (
-      <spotLight
-        color={[0.76, 0.85, 0.89]}
-        intensity={0.15}
-        angle={0.6}
-        penumbra={0.5}
-        position={[4, 20, -2]}
-        castShadow
-        shadow-bias={-0.0001}
-      />
+      <>
+        <directionalLight
+          color={[0.76, 0.85, 0.89]}
+          intensity={0.15}
+          castShadow
+          isDirectionalLight
+          position={[4, 20, -2]}
+        />
+        <ambientLight
+          color={[0.76, 0.85, 0.89]}
+          intensity={0.05}
+          isAmbientLight
+          isLight
+          isObject3D
+        />
+      </>
     );
   }
 
