@@ -26,6 +26,7 @@ import state from '../../store';
 
 // Custom Component
 import Ground from '../Ground/Ground';
+import Lights from '../Lights/Lights';
 import Car from '../Car/Car';
 
 function CarShow() {
@@ -48,26 +49,10 @@ function CarShow() {
         position={[3, 2, 5]}
       />
 
+      {/* <color args={snap.currentEnvironment === 'daytime' ? [255, 255, 255] : [0, 0, 0]} attach="background" /> */}
       <color args={[0, 0, 0]} attach="background" />
 
-      <spotLight
-        color={[1, 0.25, 0.7]}
-        intensity={0.4}
-        angle={0.6}
-        penumbra={0.5}
-        position={[5, 5, 0]}
-        castShadow
-        shadow-bias={-0.0001}
-      />
-      <spotLight
-        color={[0.14, 0.5, 1]}
-        intensity={0.4}
-        angle={0.6}
-        penumbra={0.5}
-        position={[-5, 5, 0]}
-        castShadow
-        shadow-bias={-0.0001}
-      />
+      <Lights />
 
       <Ground />
 
@@ -80,22 +65,23 @@ function CarShow() {
         )}
       </CubeCamera>
 
-      <EffectComposer>
+      {/* <EffectComposer>
         <Bloom
           blendFunction={BlendFunction.ADD}
-          intensity={0.1} // The bloom intensity.
+          intensity={0.2} // The bloom intensity.
           width={800} // render width
           height={800} // render height
-          kernelSize={2} // blur kernel size
+          kernelSize={1} // blur kernel size
           // eslint-disable-next-line max-len
-          luminanceThreshold={0.10} // luminance threshold. Raise this value to mask out darker elements in the scene.
-          luminanceSmoothing={0.15} // smoothness of the luminance threshold. Range is [0, 1]
+          luminanceThreshold={0.05}
+          // luminance threshold. Raise this value to mask out darker elements in the scene.
+          luminanceSmoothing={0.1} // smoothness of the luminance threshold. Range is [0, 1]
         />
         <ChromaticAberration
           blendFunction={BlendFunction.NORMAL} // blend mode
           offset={[0.0002, 0.0002]} // color offset
         />
-      </EffectComposer>
+      </EffectComposer> */}
     </>
   );
 }

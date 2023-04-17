@@ -49,6 +49,8 @@ const state = proxy({
     },
   }],
   environmentOpen: false,
+  currentEnvironment: 'vibe',
+  brightEnvironment: false,
 });
 
 export default state;
