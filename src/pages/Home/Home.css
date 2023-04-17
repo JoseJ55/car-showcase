@@ -1,6 +1,6 @@
 .home {
     z-index: 100;
-    width: 40%;
+    width: 45%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -11,14 +11,13 @@
 #home-content {
     background-color: var(--transparent-background-color);
     transform: translate(-50%, -50%);
-    width: 89.5%;
-    padding: 7% 5%;
+    width: 87.5%;
+    padding: 7% 6%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     border-radius: 10px;
     border: grey solid 2px;
-    box-shadow: 0 0 10px;
 }
 
 #home-content-goto {

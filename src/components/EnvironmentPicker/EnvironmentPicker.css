@@ -4,8 +4,11 @@
     bottom: 1%;
     left: 30%;
     width: 40%;
+    min-width: 500px;
+    max-width: 1000px;
+    max-height: 25px;
     padding: .5% 0;
-    background-color: var(--transparent-button-color);
+    background-color: var(--transparent-background-color);
     border: grey solid 1px;
     border-radius: 10px;
     display: flex;

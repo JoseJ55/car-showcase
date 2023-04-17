@@ -8,8 +8,8 @@ html, body, #root, canvas {
 :root {
   --main-color: rgba(0, 0, 0, 1);
   --secondary-color: rgba(0, 0, 0, 1);
-  --transparent-background-color: rgba(143, 143, 143, 0.826);
-  --transparent-button-color: rgba(143, 143, 143, 0.826);
+  --transparent-background-color: rgba(211, 228, 255, 0.749);
+  --transparent-button-color: rgba(138, 180, 248, 0.749);
 
   --main-text-color: rgba(0, 0, 0, 1);
 

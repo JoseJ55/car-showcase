@@ -8,7 +8,8 @@
 
 #customizer-back-button {
     width: 100%;
-    background-color: var(--transparent-button-color);
+    max-width: 100px;
+    background-color: var(--transparent-background-color);
     border: grey solid 1px;
     border-radius: 10px;
 }

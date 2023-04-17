@@ -1,8 +1,9 @@
 .custom-button {
-    background-color: rgba(186, 186, 186, 0.589);
+    background-color: rgba(158, 252, 255, 0.589);
     border: none;
     border-radius: 10px;
     width: 40%;
+    max-width: 100px;
     margin-left: 5%;
     font-family: var(--main-font);
     color: black;
@@ -11,7 +12,7 @@
 }
 
 .custom-button:hover {
-    background-color: rgb(186, 186, 186);
+    background-color: rgba(88, 249, 255, 0.61);
     box-shadow: 0 0 3px;
     cursor: pointer;
 }
