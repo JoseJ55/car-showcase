@@ -1,10 +1,12 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useState, useCallback, useMemo,
+} from 'react';
 
 // Three.js elements
-import { useFrame, useLoader } from '@react-three/fiber';
+import { useLoader } from '@react-three/fiber';
 import { MeshReflectorMaterial } from '@react-three/drei';
 import { LinearEncoding, RepeatWrapping, TextureLoader } from 'three';
 
@@ -15,7 +17,16 @@ import state from '../../store';
 export default function Ground() {
   const snap = useSnapshot(state);
 
-  const [groundColor, setGroundColor] = useState([0.015, 0.015, 0.015]);
+  // const [groundColor, setGroundColor] = useState([0.015, 0.015, 0.015]);
+  const groundColor = useMemo(() => {
+    if (snap.currentEnvironment === 'daytime') {
+      return [0.15, 0.15, 0.15];
+    } if (snap.currentEnvironment === 'nighttime') {
+      return [0.05, 0.05, 0.05];
+    }
+    return [0.015, 0.015, 0.015];
+  }, [snap.currentEnvironment]);
+
   const [blurRatio, setBlurRatio] = useState(0.15);
   const [texture, setTexture] = useState({
     roughness: '/textures/terrain-roughness.jpg',
@@ -28,41 +39,38 @@ export default function Ground() {
     texture.normal,
   ]);
 
-  useEffect(() => {
-    [normal, roughness].forEach((t) => {
-      t.wrapS = RepeatWrapping;
-      t.wrapT = RepeatWrapping;
-      t.repeat.set(5, 5);
-      t.offset.set(0, 0);
-    });
+  const configureTexture = useCallback(
+    () => {
+      [normal, roughness].forEach((t) => {
+        t.wrapS = RepeatWrapping;
+        t.wrapT = RepeatWrapping;
+        t.repeat.set(5, 5);
+        t.offset.set(0, 0);
+      });
 
-    normal.encoding = LinearEncoding;
-  }, [normal, roughness]);
-
-  // This here allows the ground to move a certain direction.
-  //   useFrame((state, delta) => {
-  //     const t = -state.clock.getElapsedTime() * 0.128;
-  //     roughness.offset.set(0, t % 1);
-  //     normal.offset.set(0, t % 1);
-  //   });
+      normal.encoding = LinearEncoding;
+    },
+    [normal, roughness],
+  );
 
   useEffect(() => {
+    configureTexture();
+  }, [configureTexture]);
+
+  useMemo(() => {
     if (snap.currentEnvironment === 'daytime') {
-      setGroundColor([0.15, 0.15, 0.15]);
       setBlurRatio(0.01);
       setTexture({
         roughness: '/textures/asphalt/asphalt-roughness.jpg',
         normal: '/textures/asphalt/asphalt-normal.jpg',
       });
     } else if (snap.currentEnvironment === 'nighttime') {
-      setGroundColor([0.05, 0.05, 0.05]);
       setBlurRatio(0);
       setTexture({
         roughness: '/textures/terrain-roughness.jpg',
         normal: '/textures/terrain-normal.jpg',
       });
     } else {
-      setGroundColor([0.015, 0.015, 0.015]);
       setBlurRatio(0.15);
       setTexture({
         roughness: '/textures/terrain-roughness.jpg',
@@ -82,8 +90,8 @@ export default function Ground() {
         dithering
         color={groundColor}
         roughness={0.7}
-        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+        // blur={[1000, 400]} // Blur ground reflections (width, height), 0 skips blur
+        // mixBlur={30} // How much blur mixes with surface roughness (default = 1)
         mixStrength={10} // Strength of the reflections
         mixContrast={1} // Contrast of the reflections
         resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower

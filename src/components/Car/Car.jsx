@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 
 // Three.js elements
 import { useLoader } from '@react-three/fiber';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Mesh } from 'three';
 
@@ -17,25 +18,34 @@ import state from '../../store';
 export default function Car() {
   const snap = useSnapshot(state);
 
+  const dracoLoader = useMemo(() => {
+    const loader = new DRACOLoader();
+    loader.setDecoderPath('/draco-gltf/');
+    return loader;
+  }, []);
+
   const gltf = useLoader(
     GLTFLoader,
     '/models/car/scene.gltf',
+    (loader) => {
+      loader.setDRACOLoader(dracoLoader);
+    },
   );
 
-  useEffect(() => {
+  useMemo(() => {
     gltf.materials.Car_Paint.color.r = snap.color.r;
     gltf.materials.Car_Paint.color.g = snap.color.g;
     gltf.materials.Car_Paint.color.b = snap.color.b;
   }, [state.color]);
 
-  useEffect(() => {
+  useMemo(() => {
     gltf.scene.scale.set(0.005, 0.005, 0.005);
     gltf.scene.position.set(0, -0.035, 0);
     gltf.scene.traverse((object) => {
       if (object instanceof Mesh) {
         object.castShadow = true;
         object.receiveShadow = true;
-        object.material.envMapIntensity = 20;
+        object.material.envMapIntensity = 10;
       }
     });
   }, [gltf]);

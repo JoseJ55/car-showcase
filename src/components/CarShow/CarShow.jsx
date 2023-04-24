@@ -4,14 +4,6 @@
 import React from 'react';
 import './CarShow.css';
 
-// Postprocessing elements
-import {
-  EffectComposer,
-  Bloom,
-  ChromaticAberration,
-} from '@react-three/postprocessing'
-import { BlendFunction } from 'postprocessing';
-
 // Three.js element
 import {
   CubeCamera,
@@ -52,14 +44,13 @@ function CarShow() {
         position={[3, 2, 5]}
       />
 
-      {/* <color args={snap.currentEnvironment === 'daytime' ? [255, 255, 255] : [0, 0, 0]} attach="background" /> */}
       <color args={[0, 0, 0]} attach="background" />
 
       <Lights />
 
       <Ground />
 
-      <CubeCamera resolution={256} frames={Infinity}>
+      <CubeCamera resolution={128} frames={Infinity}>
         {(texture) => (
           <>
             <Environment map={texture} />
@@ -67,24 +58,6 @@ function CarShow() {
           </>
         )}
       </CubeCamera>
-
-      {/* <EffectComposer>
-        <Bloom
-          blendFunction={BlendFunction.ADD}
-          intensity={0.2} // The bloom intensity.
-          width={800} // render width
-          height={800} // render height
-          kernelSize={1} // blur kernel size
-          // eslint-disable-next-line max-len
-          luminanceThreshold={0.05}
-          // luminance threshold. Raise this value to mask out darker elements in the scene.
-          luminanceSmoothing={0.1} // smoothness of the luminance threshold. Range is [0, 1]
-        />
-        <ChromaticAberration
-          blendFunction={BlendFunction.NORMAL} // blend mode
-          offset={[0.0002, 0.0002]} // color offset
-        />
-      </EffectComposer> */}
     </>
   );
 }
