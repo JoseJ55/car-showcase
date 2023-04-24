@@ -24,22 +24,38 @@ export default function Car() {
     return loader;
   }, []);
 
+  // '/models/corvette_c7/scene.gltf'
+  // '/models/mclaren_p1/scene.gltf'
+  // '/models/porshe_taycan/scene.gltf'
   const gltf = useLoader(
     GLTFLoader,
-    '/models/car/scene.gltf',
+    '/models/porshe_taycan/scene.gltf',
     (loader) => {
       loader.setDRACOLoader(dracoLoader);
     },
   );
 
-  useMemo(() => {
-    gltf.materials.Car_Paint.color.r = snap.color.r;
-    gltf.materials.Car_Paint.color.g = snap.color.g;
-    gltf.materials.Car_Paint.color.b = snap.color.b;
-  }, [state.color]);
+  // useMemo(() => {
+  //   gltf.materials.Car_Paint.color.r = snap.color.r;
+  //   gltf.materials.Car_Paint.color.g = snap.color.g;
+  //   gltf.materials.Car_Paint.color.b = snap.color.b;
+  // }, [state.color]);
 
   useMemo(() => {
-    gltf.scene.scale.set(0.005, 0.005, 0.005);
+    // console.log(gltf);
+    // if(corvet) { // CHange this so it works.
+    // gltf.scene.scale.set(0.005, 0.005, 0.005);
+    // gltf.scene.position.set(0, -0.035, 0);
+    // gltf.scene.traverse((object) => {
+    //   if (object instanceof Mesh) {
+    //     object.castShadow = true;
+    //     object.receiveShadow = true;
+    //     object.material.envMapIntensity = 10;
+    //   }
+    // });
+    // }
+
+    gltf.scene.scale.set(0.95, 0.95, 0.95);
     gltf.scene.position.set(0, -0.035, 0);
     gltf.scene.traverse((object) => {
       if (object instanceof Mesh) {
