@@ -29,11 +29,16 @@ function EnvironmentPicker() {
   ];
 
   return (
-    <motion.div id="environment-picker" {...slideAnimation('up', 500)}>
-      {enviornments.map((env, key) => (
+    <motion.div id="environment-picker" {...slideAnimation('right', 500)}>
+      {enviornments.map((env, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <CustomButton title={env.title} key={key} className="environment" handleClick={() => state.currentEnvironment = env.title} />
-        // <input key={key} className="environment" type="button" value={env.title} />
+        <div className="environment" key={index}>
+          <CustomButton
+            title={env.title}
+            className="environment-button"
+            handleClick={() => state.currentEnvironment = env.title}
+          />
+        </div>
       ))}
     </motion.div>
   );

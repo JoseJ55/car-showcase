@@ -20,6 +20,7 @@ import EnvironmentPicker from '../../components/EnvironmentPicker/EnvironmentPic
 
 // Animation components
 import { slideAnimation } from '../../config/motion';
+import CarPicker from '../../components/CarPicker/CarPicker';
 
 function Customizer() {
   const snap = useSnapshot(state);
@@ -45,6 +46,7 @@ function Customizer() {
           </motion.div>
 
           <EnvironmentPicker />
+          <CarPicker />
         </motion.section>
       )}
     </AnimatePresence>

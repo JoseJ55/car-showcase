@@ -24,12 +24,10 @@ export default function Car() {
     return loader;
   }, []);
 
-  // '/models/corvette_c7/scene.gltf'
-  // '/models/mclaren_p1/scene.gltf'
-  // '/models/porshe_taycan/scene.gltf'
+  // 'corvette_c7', 'mclaren_p1', porshe_taycan'
   const gltf = useLoader(
     GLTFLoader,
-    '/models/porshe_taycan/scene.gltf',
+    `/models/${snap.currentVehicle}/scene.gltf`,
     (loader) => {
       loader.setDRACOLoader(dracoLoader);
     },
@@ -42,20 +40,9 @@ export default function Car() {
   // }, [state.color]);
 
   useMemo(() => {
-    // console.log(gltf);
-    // if(corvet) { // CHange this so it works.
-    // gltf.scene.scale.set(0.005, 0.005, 0.005);
-    // gltf.scene.position.set(0, -0.035, 0);
-    // gltf.scene.traverse((object) => {
-    //   if (object instanceof Mesh) {
-    //     object.castShadow = true;
-    //     object.receiveShadow = true;
-    //     object.material.envMapIntensity = 10;
-    //   }
-    // });
-    // }
+    if (snap.currentVehicle === 'corvette_c7') gltf.scene.scale.set(0.005, 0.005, 0.005); // Need this is the model for the corvette is not scaled right.
+    else gltf.scene.scale.set(0.95, 0.95, 0.95);
 
-    gltf.scene.scale.set(0.95, 0.95, 0.95);
     gltf.scene.position.set(0, -0.035, 0);
     gltf.scene.traverse((object) => {
       if (object instanceof Mesh) {

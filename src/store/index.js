@@ -51,6 +51,12 @@ const state = proxy({
   environmentOpen: false,
   currentEnvironment: 'vibe',
   brightEnvironment: false,
+  currentVehicle: 'corvette_c7',
+  vehicles: [
+    'corvette_c7',
+    'mclaren_p1',
+    'porshe_taycan',
+  ],
 });
 
 export default state;

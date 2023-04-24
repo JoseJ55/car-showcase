@@ -2,12 +2,12 @@
     background-color: rgba(158, 252, 255, 0.589);
     border: none;
     border-radius: 10px;
-    width: 40%;
-    max-width: 100px;
-    margin-left: 5%;
+    width: 100%;
+    max-width: 150px;
+    min-width: fit-content;
     font-family: var(--main-font);
     color: black;
-    padding: 1% 0;
+    padding: 3% 0;
     font-size: 1rem;
 }
 
