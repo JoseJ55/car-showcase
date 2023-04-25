@@ -18,6 +18,8 @@ import state from '../../store';
 export default function Car() {
   const snap = useSnapshot(state);
 
+  const lightScaler = 1.3; // This is for the lighting since some colors come out darker.
+
   const dracoLoader = useMemo(() => {
     const loader = new DRACOLoader();
     loader.setDecoderPath('/draco-gltf/');
@@ -33,22 +35,46 @@ export default function Car() {
     },
   );
 
-  // useMemo(() => {
-  //   gltf.materials.Car_Paint.color.r = snap.color.r;
-  //   gltf.materials.Car_Paint.color.g = snap.color.g;
-  //   gltf.materials.Car_Paint.color.b = snap.color.b;
-  // }, [state.color]);
+  useMemo(() => {
+    if (snap.currentVehicle === 'corvette_c7') {
+      gltf.materials.Car_Paint.color.r = (snap.color.r / 255) * lightScaler;
+      gltf.materials.Car_Paint.color.g = (snap.color.g / 255) * lightScaler;
+      gltf.materials.Car_Paint.color.b = (snap.color.b / 255) * lightScaler;
+    } else if (snap.currentVehicle === 'porshe_taycan') {
+      gltf.materials.corpus1.color.r = (snap.color.r / 255) * lightScaler;
+      gltf.materials.corpus1.color.g = (snap.color.g / 255) * lightScaler;
+      gltf.materials.corpus1.color.b = (snap.color.b / 255) * lightScaler;
+    } else {
+      gltf.materials.Carpaint.color.r = (snap.color.r / 255) * lightScaler;
+      gltf.materials.Carpaint.color.g = (snap.color.g / 255) * lightScaler;
+      gltf.materials.Carpaint.color.b = (snap.color.b / 255) * lightScaler;
+    }
+  }, [snap.color]);
 
   useMemo(() => {
-    if (snap.currentVehicle === 'corvette_c7') gltf.scene.scale.set(0.005, 0.005, 0.005); // Need this is the model for the corvette is not scaled right.
-    else gltf.scene.scale.set(0.95, 0.95, 0.95);
+    if (snap.currentVehicle === 'corvette_c7') {
+      // Need this is the model for the corvette is not scaled right.
+      gltf.scene.scale.set(0.005, 0.005, 0.005);
+      gltf.materials.Car_Paint.color.r = (snap.color.r / 255) * lightScaler;
+      gltf.materials.Car_Paint.color.g = (snap.color.g / 255) * lightScaler;
+      gltf.materials.Car_Paint.color.b = (snap.color.b / 255) * lightScaler;
+    } else if (snap.currentVehicle === 'porshe_taycan') {
+      gltf.materials.corpus1.color.r = (snap.color.r / 255) * lightScaler;
+      gltf.materials.corpus1.color.g = (snap.color.g / 255) * lightScaler;
+      gltf.materials.corpus1.color.b = (snap.color.b / 255) * lightScaler;
+    } else {
+      gltf.scene.scale.set(0.95, 0.95, 0.95);
+      gltf.materials.Carpaint.color.r = (snap.color.r / 255) * lightScaler;
+      gltf.materials.Carpaint.color.g = (snap.color.g / 255) * lightScaler;
+      gltf.materials.Carpaint.color.b = (snap.color.b / 255) * lightScaler;
+    }
 
     gltf.scene.position.set(0, -0.035, 0);
     gltf.scene.traverse((object) => {
       if (object instanceof Mesh) {
         object.castShadow = true;
         object.receiveShadow = true;
-        object.material.envMapIntensity = 10;
+        object.material.envMapIntensity = 20;
       }
     });
   }, [gltf]);

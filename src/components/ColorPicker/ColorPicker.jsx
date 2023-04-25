@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-return-assign */
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useState } from 'react';
 import './ColorPicker.css';
 
 // Animation modules
@@ -22,17 +22,28 @@ import { slideAnimation } from '../../config/motion';
 function ColorPicker() {
   const snap = useSnapshot(state);
 
-  const addNewColor = (color) => {
+  const [currentColor, setCurrentColor] = useState(snap.color);
+
+  const addNewColor = (color, past = false) => {
     const pickColor = {
       hex: color.hex,
-      r: color.rgb.r,
-      g: color.rgb.g,
-      b: color.rgb.b,
+      r: past ? color.r : color.rgb.r,
+      g: past ? color.g : color.rgb.g,
+      b: past ? color.b : color.rgb.b,
     };
 
     state.color = pickColor;
-    state.pastColors.shift();
+
+    if (past) {
+      const indexOfColor = state.pastColors.findIndex((obj) => obj.hex === color.hex);
+      state.pastColors.splice(indexOfColor, 1);
+    } else {
+      state.pastColors.shift();
+    }
+
     state.pastColors.push(pickColor);
+
+    if (past) setCurrentColor(pickColor);
   };
 
   return (
@@ -46,7 +57,7 @@ function ColorPicker() {
               className="past-color"
               key={key}
               style={{ backgroundColor: item.hex }}
-              onClick={() => addNewColor(item)}
+              onClick={() => addNewColor(item, true)}
             />
         ))}
       </motion.div>
@@ -57,9 +68,10 @@ function ColorPicker() {
                     <motion.div id="color-picker" {...slideAnimation('left', 500)}>
                         <SketchPicker
                           id="color-picker-box"
-                          color={snap.color.hex}
+                          color={currentColor}
                           disableAlpha
-                          onChange={(color) => addNewColor(color)}
+                          onChange={(color) => setCurrentColor(color)}
+                          onChangeComplete={(color) => addNewColor(color)}
                         />
                     </motion.div>
                 </motion.section>
