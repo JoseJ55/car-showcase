@@ -1,19 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { lazy } from 'react';
 
 import { Canvas } from '@react-three/fiber';
 
 // Main Pages
-import Home from './pages/Home/Home';
-import Customizer from './pages/Customizer/Customizer';
+const Home = lazy(() => import('./pages/Home/Home'));
+const Customizer = lazy(() => import('./pages/Customizer/Customizer'));
 
 // Custom components
-import AnimationCanvas from './components/AnimationCanvas/AnimationCanvas';
+const AnimationCanvas = lazy(() => import('./components/AnimationCanvas/AnimationCanvas'));
+// import Loading from './pages/Loading/Loading';
 
 function App() {
   return (
     <main className="App">
+      {/* <Loading /> */}
       <AnimationCanvas />
       <Home />
       <Customizer />

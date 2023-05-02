@@ -14,12 +14,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 import state from '../../store';
 
+// Animation components
+import { slideAnimation } from '../../config/motion';
+
 // Custom components
 import ColorPicker from '../../components/ColorPicker/ColorPicker';
 import EnvironmentPicker from '../../components/EnvironmentPicker/EnvironmentPicker';
-
-// Animation components
-import { slideAnimation } from '../../config/motion';
 import CarPicker from '../../components/CarPicker/CarPicker';
 
 function Customizer() {
@@ -30,6 +30,8 @@ function Customizer() {
       {!snap.intro && (
         <motion.section>
           <ColorPicker />
+          <EnvironmentPicker />
+          <CarPicker />
 
           <motion.div id="customizer-back" {...slideAnimation('left', 500)}>
             <button
@@ -44,9 +46,6 @@ function Customizer() {
               <AiOutlineDoubleLeft id="customizer-back-button-icon" />
             </button>
           </motion.div>
-
-          <EnvironmentPicker />
-          <CarPicker />
         </motion.section>
       )}
     </AnimatePresence>

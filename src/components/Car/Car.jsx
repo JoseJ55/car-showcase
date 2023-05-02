@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useMemo } from 'react';
+import React, { useMemo, Suspense } from 'react';
 
 // Three.js elements
 import { useLoader } from '@react-three/fiber';

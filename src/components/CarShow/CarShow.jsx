@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable semi */
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './CarShow.css';
 
 // Three.js element
@@ -17,9 +17,11 @@ import { useSnapshot } from 'valtio';
 import state from '../../store';
 
 // Custom Component
-import Ground from '../Ground/Ground';
-import Lights from '../Lights/Lights';
-import Car from '../Car/Car';
+const Ground = lazy(() => import('../Ground/Ground'));
+const Lights = lazy(() => import('../Lights/Lights'));
+const Car = lazy(() => import('../Car/Car'));
+
+const Loading = lazy(() => import('../../pages/Loading/Loading'));
 
 function CarShow() {
   const snap = useSnapshot(state);
@@ -46,18 +48,21 @@ function CarShow() {
 
       <color args={[0, 0, 0]} attach="background" />
 
+      {/* <Suspense> */}
       <Lights />
-
       <Ground />
 
       <CubeCamera resolution={128} frames={Infinity}>
         {(texture) => (
           <>
             <Environment map={texture} />
-            <Car />
+            {/* <Suspense fallback={<Loading />}> */}
+              <Car />
+            {/* </Suspense> */}
           </>
         )}
       </CubeCamera>
+      {/* </Suspense> */}
     </>
   );
 }
