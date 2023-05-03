@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { Suspense } from 'react';
+import React from 'react';
 import './AnimationCanvas.css';
 
 // Three.js elements
@@ -10,11 +10,9 @@ import CarShow from '../CarShow/CarShow';
 
 function AnimationCanvas() {
   return (
-    <Suspense fallback={null}>
-      <Canvas shadows>
-        <CarShow />
-      </Canvas>
-    </Suspense>
+    <Canvas shadows>
+      <CarShow />
+    </Canvas>
   );
 }
 

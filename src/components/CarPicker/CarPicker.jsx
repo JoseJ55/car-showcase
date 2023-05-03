@@ -40,7 +40,10 @@ function CarPicker() {
                 <CustomButton
                   key={index}
                   title={changeName(vehicle)}
-                  handleClick={() => state.currentVehicle = vehicle}
+                  handleClick={() => {
+                    state.currentVehicle = vehicle;
+                    state.showCar = false;
+                  }}
                 />
             </div>
         ))}

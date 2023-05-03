@@ -47,6 +47,9 @@ const state = proxy({
     'mclaren_p1',
     'porshe_taycan',
   ],
+  newCar: true,
+  showCar: true,
+  loaded: { elements: false, models: false, all: false },
 });
 
 export default state;

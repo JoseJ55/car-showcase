@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable semi */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, useEffect } from 'react';
 import './CarShow.css';
 
 // Three.js element
@@ -21,10 +21,20 @@ const Ground = lazy(() => import('../Ground/Ground'));
 const Lights = lazy(() => import('../Lights/Lights'));
 const Car = lazy(() => import('../Car/Car'));
 
-const Loading = lazy(() => import('../../pages/Loading/Loading'));
-
 function CarShow() {
   const snap = useSnapshot(state);
+
+  useEffect(() => {
+    if (!snap.showCar) {
+      setTimeout(() => {
+        state.showCar = true;
+      }, '3000');
+    }
+  }, [snap.showCar]);
+
+  useEffect(() => {
+    state.loaded.models = true;
+  }, []);
 
   return (
     <>
@@ -48,21 +58,22 @@ function CarShow() {
 
       <color args={[0, 0, 0]} attach="background" />
 
-      {/* <Suspense> */}
       <Lights />
       <Ground />
 
       <CubeCamera resolution={128} frames={Infinity}>
-        {(texture) => (
-          <>
-            <Environment map={texture} />
-            {/* <Suspense fallback={<Loading />}> */}
-              <Car />
-            {/* </Suspense> */}
-          </>
-        )}
+        {(texture) => {
+          if (snap.showCar) {
+            return (
+              <>
+                <Environment map={texture} />
+                <Car />
+              </>
+            )
+          }
+          return null;
+        }}
       </CubeCamera>
-      {/* </Suspense> */}
     </>
   );
 }
