@@ -33,6 +33,15 @@ function Customizer() {
           <EnvironmentPicker />
           <CarPicker />
 
+          <button
+            type="button"
+            aria-label="Customize"
+            style={{ position: 'absolute', right: '10px', bottom: '10px' }}
+            onClick={() => state.moveCar = true}
+          >
+            text animation
+          </button>
+
           <motion.div id="customizer-back" {...slideAnimation('left', 500)}>
             <button
               id="customizer-back-button"

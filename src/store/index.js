@@ -47,8 +47,9 @@ const state = proxy({
     'mclaren_p1',
     'porshe_taycan',
   ],
-  newCar: true,
-  showCar: true,
+  newCar: false, // For car animation to animate car coming into view.
+  moveCar: false, // For moving the current car off screen.
+  showCar: true, // Render the vehicle
   loaded: { elements: false, models: false, all: false },
 });
 
