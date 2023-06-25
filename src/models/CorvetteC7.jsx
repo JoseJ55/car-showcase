@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useRef } from 'react';
 
 // Three.js elements
 import { useFrame, useLoader } from '@react-three/fiber';
@@ -25,6 +25,8 @@ export default function CorvetteC7() {
 
   const lightScaler = 2.5; // This is for the lighting since some colors come out darker.
 
+  const shouldAnimate = useRef(false);
+
   const dracoLoader = useMemo(() => {
     const loader = new DRACOLoader();
     loader.setDecoderPath('/draco-gltf/');
@@ -45,7 +47,17 @@ export default function CorvetteC7() {
     gltf.materials.Car_Paint.color.b = (snap.color.b / 255) * lightScaler;
   }, [snap.color]);
 
+  useEffect(() => {
+    if (snap.newCar || snap.moveCar) {
+      shouldAnimate.current = true;
+    }
+  }, [snap.newCar, snap.moveCar]);
+
   useFrame((s, delta) => {
+    if (!shouldAnimate.current) {
+      return;
+    }
+
     if (snap.moveCar) { // Animation to change to another vehicle.
       const t = s.clock.getElapsedTime();
       const speed = 5;
@@ -62,7 +74,6 @@ export default function CorvetteC7() {
     }
 
     if (snap.newCar) { // Animation to move the vehicle on screen.
-      // starting position (6, -0.035, -10)
       const t = s.clock.getElapsedTime();
       const speed = 10;
 
@@ -73,8 +84,6 @@ export default function CorvetteC7() {
       group.children[6].rotation.x = t * speed;
 
       const direction = new Vector3(0, 0, 1);
-      // const startPosition = new Vector3(6, -0.035, -10);
-      const targetPosition = new Vector3(0, -0.035, 0);
 
       gltf.scene.position.addScaledVector(direction, speed * delta);
 
@@ -111,35 +120,14 @@ export default function CorvetteC7() {
       // if (positionOnCurve.distanceTo(targetPosition) < 0.01) {
 
       // *****************************************************************
+    }
 
-      if (gltf.scene.position.z >= targetPosition.z) {
-        state.moveCar = false;
-        state.newCar = false;
-      }
-
-      setTimeout(() => {
-        state.moveCar = false;
-        state.newCar = false;
-      }, 5000);
+    if (gltf.scene.position.z >= 0 && (snap.newCar || snap.moveCar)) {
+      state.newCar = false;
+      state.moveCar = false;
+      shouldAnimate.current = false;
     }
   });
-
-  useEffect(() => {
-    let clearTime;
-
-    if (snap.moveCar) {
-      clearTime = setTimeout(() => {
-        gltf.scene.position.set(0, -0.035, -10);
-        // gltf.scene.position.set(6, -0.035, -10); // This is used for the curve.
-        state.moveCar = false;
-        state.newCar = true;
-      }, 5000);
-    }
-
-    return () => {
-      clearTimeout(clearTime);
-    };
-  }, [snap.moveCar]);
 
   useMemo(() => {
     // Need this is the model for the corvette is not scaled right.
@@ -148,7 +136,7 @@ export default function CorvetteC7() {
     gltf.materials.Car_Paint.color.g = (snap.color.g / 255) * lightScaler;
     gltf.materials.Car_Paint.color.b = (snap.color.b / 255) * lightScaler;
 
-    gltf.scene.position.set(0, -0.035, 0);
+    gltf.scene.position.set(0, -0.035, -10);
     gltf.scene.traverse((object) => {
       if (object instanceof Mesh) {
         object.castShadow = true;

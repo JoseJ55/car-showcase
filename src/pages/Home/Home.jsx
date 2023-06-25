@@ -34,7 +34,13 @@ function Home() {
         <motion.section className="home">
           <motion.div id="home-content" {...slideAnimation('left', 2500)}>
             <p id="home-content-title">Customize Your Car</p>
-            <CustomButton title="Custom" handleClick={() => state.intro = false} />
+            <CustomButton
+              title="Custom"
+              handleClick={() => {
+                state.intro = false;
+                state.newCar = true;
+              }}
+            />
           </motion.div>
         </motion.section>
       )}

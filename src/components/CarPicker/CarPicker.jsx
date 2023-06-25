@@ -41,8 +41,13 @@ function CarPicker() {
                   key={index}
                   title={changeName(vehicle)}
                   handleClick={() => {
-                    state.currentVehicle = vehicle;
-                    state.showCar = false;
+                    state.moveCar = true;
+
+                    setTimeout(() => {
+                      state.currentVehicle = vehicle;
+                      // state.showCar = false;
+                      state.newCar = true;
+                    }, 5000);
                   }}
                 />
             </div>
